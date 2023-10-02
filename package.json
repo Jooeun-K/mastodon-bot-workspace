@@ -3,7 +3,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon --watch '*.ts' --exec ts-node index.ts",
+    "build": "tsc"
+  },
   "dependencies": {
-    "megalodon": "^8.1.1"
+    "dotenv": "^16.3.1",
+    "megalodon": "^8.1.1",
+    "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.2.2"
   }
 }
