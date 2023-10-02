@@ -1,15 +1,16 @@
 import generator from "megalodon"
-import dotenv from "dotenv"
+import dotenv, { configDotenv } from "dotenv"
 import { get } from "http"
 import getTimeline from "./src/getTimeline"
 import postRandomToot from "./src/postRandomToot"
 
-dotenv.config()
+configDotenv()
 
-const BASE_URL: string = process.env.BASE_URL || ""
+const STREMING_URL: string = process.env.STREMING_URL || ""
 const ACCESS_TOKEN: string = process.env.ACCESS_TOKEN || ""
+const client = generator('mastodon', STREMING_URL, ACCESS_TOKEN)
 
-const client = generator('mastodon', BASE_URL, ACCESS_TOKEN)
+// const client = generator('mastodon', BASE_URL, ACCESS_TOKEN)
 // console.log("client: ", client)
 // client.getHomeTimeline().then(res => {
 //   console.log(res.data)

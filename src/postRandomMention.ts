@@ -13,8 +13,12 @@ const TOOT_LIST = [
   {
     content: "오늘의 운세: 소길"
   }
-
 ]
+
+const initTargetMention = (userUrl: string, userName: string) => {
+  const result = `<p><span class="h-card" translate="no"><a href="${userUrl}" class="u-url mention">@<span>${userName}</span></a></span>`
+  return result
+}
 
 type VisibilityType = Entity.Status['visibility']
 
@@ -27,10 +31,15 @@ const selectRandomToot = () => {
   return TOOT_LIST[index].content
 }
 
-const postRandomToot = async (client?: MegalodonInterface, visibility?: VisibilityType) => {
-  const targetClient = client || localClient 
-  const toot = selectRandomToot()
-  await targetClient.postStatus(toot, {visibility: visibility || 'unlisted'})
+type TargetUser = {
+  url: string
+  name: string
 }
 
-export default postRandomToot
+const postRandomMention = async (reply_status_id: string, reply_username: string ,client?: MegalodonInterface, visibility?: VisibilityType) => {
+  const targetClient = client || localClient 
+  const toot = selectRandomToot()
+  await targetClient.postStatus(`@${reply_username} ${toot}`, {visibility: visibility || 'unlisted', in_reply_to_id: reply_status_id})
+}
+
+export default postRandomMention
