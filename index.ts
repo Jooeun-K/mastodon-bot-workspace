@@ -2,6 +2,7 @@ import generator from "megalodon"
 import dotenv from "dotenv"
 import { get } from "http"
 import getTimeline from "./src/getTimeline"
+import postRandomToot from "./src/postRandomToot"
 
 dotenv.config()
 
@@ -13,4 +14,7 @@ const client = generator('mastodon', BASE_URL, ACCESS_TOKEN)
 // client.getHomeTimeline().then(res => {
 //   console.log(res.data)
 // })
-getTimeline(client)
+
+// getTimeline(client)
+
+postRandomToot(client)
