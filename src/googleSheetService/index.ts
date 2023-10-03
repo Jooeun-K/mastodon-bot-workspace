@@ -1,6 +1,6 @@
 import { configDotenv } from "dotenv";
 import { JWT } from "google-auth-library";
-import { GoogleSpreadsheet, GoogleSpreadsheetWorksheet } from "google-spreadsheet";
+import { GoogleSpreadsheet, GoogleSpreadsheetRow, GoogleSpreadsheetWorksheet } from "google-spreadsheet";
 
 import creds from '../../mastodon-bot-sheet-c4a8fa931643.json'
 
@@ -52,6 +52,24 @@ export const addNewUser = async (sheet: GoogleSpreadsheetWorksheet) => {
   }
   await sheet.addRow(newUser)
   return newUser
+}
+
+export const decreaseRowCrystal = async (row: GoogleSpreadsheetRow) => {
+  const prevCrystal = row.get("크리스탈")
+  const newCrystal = prevCrystal - 1
+  row.set("크리스탈", newCrystal)
+  await row.save()
+  return prevCrystal
+}
+
+export const getStatRowById = async (id: string) => {
+  await doc.loadInfo()
+  const 스탯시트 = doc.sheetsByTitle['스탯']
+  const rows = await 스탯시트.getRows()
+  for (const row of rows){
+    const accountId = row.get("계정")
+    if (id === accountId) return row
+  }
 }
 
 getStatSheet().then(addNewUser).then((newUser) => {
