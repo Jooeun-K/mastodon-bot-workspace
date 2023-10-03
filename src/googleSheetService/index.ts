@@ -22,25 +22,35 @@ const doc = new GoogleSpreadsheet(SHEET_ID, jwt)
 export const getStatSheet = async () => {
   await doc.loadInfo()
   console.log(doc.title)
-  const 스탯 = doc.sheetsByTitle['스탯']
-  const rows = await 스탯.getRows()
+  const 스탯시트 = doc.sheetsByTitle['스탯']
+  const rows = await 스탯시트.getRows()
   console.log(rows.length)
   rows.forEach(row => {
     const name = row.get("이름")
+    const id = row.get("계정")
     const age = row.get("나이")
     const stamina = row.get("스태미나")
     const crystal = row.get("크리스탈")
-    console.log(`${name} / ${age} / ${stamina} / ${crystal}`)
+    console.log(`${name} / ${id} / ${age} / ${stamina} / ${crystal}`)
   })
-  return 스탯
+  return 스탯시트
 }
 
 const drawFrotune = async () => {
   console.log("운세뽑기!") 
 }
 
-const addNewUser = async (sheet: GoogleSpreadsheetWorksheet) => {
-  const newUser = await sheet.addRow({"이름": "테스트 유저", "나이": 20, "스태미나": 100, "크리스탈": 100})
+export const addNewUser = async (sheet: GoogleSpreadsheetWorksheet) => {
+  const randomNum = Math.floor(Math.random() * 10)
+  const id = `test_account_${randomNum}`
+  const newUser = {
+    "이름": `테스트 유저 ${randomNum}`,
+    "계정": id,
+    "나이": 20,
+    "스태미나": 100,
+    "크리스탈": 100
+  }
+  await sheet.addRow(newUser)
   return newUser
 }
 
