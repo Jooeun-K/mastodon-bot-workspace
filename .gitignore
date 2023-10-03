@@ -141,4 +141,9 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
+# Google Secret Key
+credentials.json
+token.json
+mastodon-bot-sheet-c4a8fa931643.json
+
 # End of https://www.toptal.com/developers/gitignore/api/node
